@@ -1,0 +1,16 @@
+.quizStart {
+	width: 200px;
+	height: 30px;
+	border-radius: 8px;
+	border: none;
+	background-color: #e3cb36;
+	font-weight: 700;
+	cursor: pointer;
+	opacity: 0.8;
+	transition: 0.3s;
+}
+
+.quizStart:hover {
+	opacity: 1;
+	transform: scale(1.2);
+}

@@ -1,0 +1,39 @@
+.answers__container {
+	display: flex;
+	flex-direction: column;
+}
+
+.answer {
+	border: none;
+	cursor: pointer;
+	margin: 5px;
+	border-radius: 6px;
+	padding: 8px 0;
+	font-weight: 700;
+	color: white;
+	background-color: black;
+	font-size: 15px;
+}
+
+.answer:hover {
+	color: black;
+	background-color: goldenrod;
+}
+
+.correct {
+	background-color: green;
+}
+
+.incorrect {
+	background-color: red;
+}
+
+.answer.correct:hover {
+	color: white;
+	background-color: green;
+}
+
+.answer.incorrect:hover {
+	color: white;
+	background-color: red;
+}
