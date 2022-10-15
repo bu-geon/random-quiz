@@ -24,20 +24,10 @@ const Quiz = () => {
 
 		if (e.currentTarget.value === correct_answer) {
 			e.currentTarget.className += ` ${styles.correct}`;
-			setScore({
-				startTime: score.startTime,
-				finishTime: score.finishTime,
-				corrects: [...score.corrects, quizIndex],
-				incorrects: score.incorrects,
-			});
+			setScore({ ...score, corrects: [...score.corrects, quizIndex] });
 		} else {
 			e.currentTarget.className += ` ${styles.incorrect}`;
-			setScore({
-				startTime: score.startTime,
-				finishTime: score.finishTime,
-				corrects: score.corrects,
-				incorrects: [...score.incorrects, quizIndex],
-			});
+			setScore({ ...score, incorrects: [...score.incorrects, quizIndex] });
 		}
 
 		setIsAnswerSelected(true);
