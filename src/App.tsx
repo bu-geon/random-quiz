@@ -8,6 +8,11 @@ import Home from './routes/home';
 import Quiz from './routes/quiz';
 import Scoreboad from './routes/scoreboard';
 
+export const PATH = {
+	quiz: 'quiz',
+	scoreboad: 'scoreboard',
+};
+
 function App() {
 	return (
 		<RecoilRoot>
@@ -15,8 +20,8 @@ function App() {
 				<main>
 					<Routes>
 						<Route index element={<Home />} />
-						<Route path="/quiz" element={<Quiz />} />
-						<Route path="/scoreboard" element={<Scoreboad />} />
+						<Route path={PATH.quiz} element={<Quiz />} />
+						<Route path={PATH.scoreboad} element={<Scoreboad />} />
 						<Route path="*" element={<div>Page Not Found</div>} />
 					</Routes>
 				</main>
