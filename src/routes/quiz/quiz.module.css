@@ -5,7 +5,6 @@
 
 .answer {
 	border: none;
-	cursor: pointer;
 	margin: 5px;
 	border-radius: 6px;
 	padding: 8px 0;
@@ -15,7 +14,11 @@
 	font-size: 15px;
 }
 
-.answer:hover {
+.notSolved {
+	cursor: pointer;
+}
+
+.notSolved:hover {
 	color: black;
 	background-color: goldenrod;
 }
@@ -28,12 +31,12 @@
 	background-color: red;
 }
 
-.answer.correct:hover {
+.answer.correct {
 	color: white;
 	background-color: green;
 }
 
-.answer.incorrect:hover {
+.answer.incorrect {
 	color: white;
 	background-color: red;
 }

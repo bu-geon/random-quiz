@@ -2,12 +2,15 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { decode } from 'html-entities';
+import classNames from 'classnames/bind';
 
 import styles from './quiz.module.css';
 
 import { quizListState, scoreState } from 'atoms/states';
 import NextButton from 'components/nextButton';
 import { PATH } from 'App';
+
+const cn = classNames.bind(styles);
 
 const Quiz = () => {
 	const [quizIndex, setQuizIndex] = useState(0);
@@ -16,32 +19,29 @@ const Quiz = () => {
 	const answers = [correct_answer, ...incorrect_answers].sort();
 	const [score, setScore] = useRecoilState(scoreState);
 
-	const [isAnswerSelected, setIsAnswerSelected] = useState(false);
+	const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>(undefined);
 
 	const navigate = useNavigate();
 
-	const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-		if (isAnswerSelected) return;
+	const handleAnswerClick = (e: MouseEvent<HTMLButtonElement>) => {
+		setSelectedAnswer(e.currentTarget.value);
 
 		if (e.currentTarget.value === correct_answer) {
-			e.currentTarget.className += ` ${styles.correct}`;
+			// e.currentTarget.className += ` ${styles.correct}`;
 			setScore({ ...score, corrects: [...score.corrects, quizIndex + 1] });
 		} else {
-			e.currentTarget.className += ` ${styles.incorrect}`;
+			// e.currentTarget.className += ` ${styles.incorrect}`;
 			setScore({ ...score, incorrects: [...score.incorrects, quizIndex + 1] });
 		}
-
-		setIsAnswerSelected(true);
 	};
 
 	const handleNext = () => {
-		setIsAnswerSelected(false);
-
-		setScore({ ...score, finishTime: new Date() });
-
 		if (quizIndex === 9) {
+			setScore({ ...score, finishTime: new Date() });
 			navigate(`/${PATH.scoreboad}`);
 		}
+
+		setSelectedAnswer(undefined);
 		setQuizIndex((prev) => prev + 1);
 	};
 
@@ -58,12 +58,22 @@ const Quiz = () => {
 			<p>Select an answer</p>
 			<div className={styles.answers__container}>
 				{answers.map((answer) => (
-					<button className={styles.answer} key={answer} value={answer} onClick={handleClick}>
+					<button
+						className={cn('answer', {
+							notSolved: selectedAnswer === undefined,
+							correct: selectedAnswer === answer && selectedAnswer === correct_answer,
+							incorrect: selectedAnswer === answer && selectedAnswer !== correct_answer,
+						})}
+						key={answer}
+						value={answer}
+						onClick={handleAnswerClick}
+						disabled={selectedAnswer !== undefined}
+					>
 						{answer}
 					</button>
 				))}
 			</div>
-			{isAnswerSelected && <NextButton title="다음 문항" handleClick={handleNext} />}
+			{selectedAnswer !== undefined && <NextButton title="다음 문항" handleClick={handleNext} />}
 		</>
 	);
 };
