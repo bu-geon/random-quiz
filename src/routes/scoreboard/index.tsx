@@ -1,6 +1,6 @@
 import { scoreState } from 'atoms/states';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 
 import './scoreboard.module.css';
 
@@ -8,6 +8,8 @@ import { PATH } from 'App';
 
 const Scoreboard = () => {
 	const { finishTime, startTime, corrects, incorrects } = useRecoilValue(scoreState);
+
+	const resetScore = useResetRecoilState(scoreState);
 
 	return (
 		<>
@@ -21,8 +23,8 @@ const Scoreboard = () => {
 				<dt>오답 개수 [{incorrects.join(', ')}]</dt>
 				<dd>{incorrects.length}개</dd>
 			</dl>
-			<Link to={`../${PATH.quiz}`}>
-				<button>다시 풀기</button>
+			<Link to={`/${PATH.quiz}`}>
+				<button onClick={resetScore}>다시 풀기</button>
 			</Link>
 			<button>오답 노트</button>
 		</>

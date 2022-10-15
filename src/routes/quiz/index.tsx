@@ -7,6 +7,7 @@ import styles from './quiz.module.css';
 
 import { quizListState, scoreState } from 'atoms/states';
 import NextButton from 'components/nextButton';
+import { PATH } from 'App';
 
 const Quiz = () => {
 	const [quizIndex, setQuizIndex] = useState(0);
@@ -24,10 +25,10 @@ const Quiz = () => {
 
 		if (e.currentTarget.value === correct_answer) {
 			e.currentTarget.className += ` ${styles.correct}`;
-			setScore({ ...score, corrects: [...score.corrects, quizIndex] });
+			setScore({ ...score, corrects: [...score.corrects, quizIndex + 1] });
 		} else {
 			e.currentTarget.className += ` ${styles.incorrect}`;
-			setScore({ ...score, incorrects: [...score.incorrects, quizIndex] });
+			setScore({ ...score, incorrects: [...score.incorrects, quizIndex + 1] });
 		}
 
 		setIsAnswerSelected(true);
@@ -36,26 +37,16 @@ const Quiz = () => {
 	const handleNext = () => {
 		setIsAnswerSelected(false);
 
-		setScore({
-			startTime: score.startTime,
-			finishTime: new Date(),
-			corrects: score.corrects,
-			incorrects: score.incorrects,
-		});
+		setScore({ ...score, finishTime: new Date() });
 
 		if (quizIndex === 9) {
-			navigate('/scoreboard');
+			navigate(`/${PATH.scoreboad}`);
 		}
 		setQuizIndex((prev) => prev + 1);
 	};
 
 	useEffect(() => {
-		setScore({
-			startTime: new Date(),
-			finishTime: score.finishTime,
-			corrects: score.corrects,
-			incorrects: score.incorrects,
-		});
+		setScore({ ...score, startTime: new Date() });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
