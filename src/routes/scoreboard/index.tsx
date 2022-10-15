@@ -5,6 +5,7 @@ import { useRecoilValue, useResetRecoilState } from 'recoil';
 import './scoreboard.module.css';
 
 import { PATH } from 'App';
+import NextButton from 'components/nextButton';
 
 const Scoreboard = () => {
 	const { finishTime, startTime, corrects, incorrects } = useRecoilValue(scoreState);
@@ -24,7 +25,7 @@ const Scoreboard = () => {
 				<dd>{incorrects.length}개</dd>
 			</dl>
 			<Link to={`/${PATH.quiz}`}>
-				<button onClick={resetScore}>다시 풀기</button>
+				<NextButton title="다시 풀기" handleClick={resetScore} />
 			</Link>
 			<button>오답 노트</button>
 		</>
