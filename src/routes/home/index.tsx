@@ -3,7 +3,6 @@ import { useRecoilState } from 'recoil';
 import { quizListState } from 'atoms/states';
 import { useNavigate } from 'react-router-dom';
 
-import styles from './home.module.css';
 import NextButton from 'components/nextButton';
 
 const QUIZ_API_URL = 'https://opentdb.com/api.php';
